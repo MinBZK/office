@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dpl
+  labels:
+    app.kubernetes.io/name: collabora
+    app.kubernetes.io/instance: nextcloud
+spec:
+  minReadySeconds: 0
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: collabora
+      app.kubernetes.io/instance: nextcloud
+      type: main
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: collabora
+        app.kubernetes.io/instance: nextcloud
+        type: main
+    spec:
+      terminationGracePeriodSeconds: 60
+      serviceAccountName: default
+      securityContext:
+        {}
+      containers:
+        - name: collabora
+          securityContext:
+            {}
+          image: "collabora/code:24.04.5.2.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9980
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            failureThreshold: 30
+            periodSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 4
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9980
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 2
+
+          envFrom:
+            - configMapRef:
+                name: cfm
+          env:
+            - name: username
+              valueFrom:
+                secretKeyRef:
+                  name: sec
+                  key: username
+            - name: password
+              valueFrom:
+                secretKeyRef:
+                  name: sec
+                  key: password
+          resources:
+            {}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

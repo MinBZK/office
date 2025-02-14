@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cfm
+data:
+  extra_params: --o:ssl.enable=false --o:ssl.termination=true
+  server_name: office.la-suite.apps.digilab.network
+  aliasgroup1: https://files.la-suite.apps.digilab.network
