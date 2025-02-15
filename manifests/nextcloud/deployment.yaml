@@ -52,7 +52,7 @@ spec:
                   name: sec
                   key: nextcloud-password
             - name: NEXTCLOUD_TRUSTED_DOMAINS
-              value: files.la-suite.apps.digilab.network
+              value: files2.la-suite.apps.digilab.network
             - name: NEXTCLOUD_DATA_DIR
               value: "/var/www/html/data"
             # - name: OBJECTSTORE_S3_SSL
@@ -92,9 +92,9 @@ spec:
             - name: SMTP_AUTHTYPE
               value: "PLAIN"
             - name: MAIL_FROM_ADDRESS
-              value: "no-reply@files.la-suite.apps.digilab.network"
+              value: "no-reply@files2.la-suite.apps.digilab.network"
             - name: MAIL_DOMAIN
-              value: "files.la-suite.apps.digilab.network"  
+              value: "files2.la-suite.apps.digilab.network"  
           ports:
             - name: http
               containerPort: 80
@@ -105,7 +105,7 @@ spec:
           #     port:  80
           #     httpHeaders:
           #     - name: Host
-          #       value: "files.la-suite.apps.digilab.network"
+          #       value: "files2.la-suite.apps.digilab.network"
           #   initialDelaySeconds: 10
           #   periodSeconds: 10
           #   timeoutSeconds: 5
@@ -117,7 +117,7 @@ spec:
           #     port:  80
           #     httpHeaders:
           #     - name: Host
-          #       value: "files.la-suite.apps.digilab.network"
+          #       value: "files2.la-suite.apps.digilab.network"
           #   initialDelaySeconds: 10
           #   periodSeconds: 10
           #   timeoutSeconds: 5

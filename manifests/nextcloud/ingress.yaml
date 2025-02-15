@@ -21,7 +21,7 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
-    - host: files.la-suite.apps.digilab.network
+    - host: files2.la-suite.apps.digilab.network
       http:
         paths:
           - path: /
@@ -33,5 +33,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-      - files.la-suite.apps.digilab.network
+      - files2.la-suite.apps.digilab.network
       secretName: nextcloud-tls
