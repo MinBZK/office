@@ -5,4 +5,4 @@ metadata:
 data:
   extra_params: --o:ssl.enable=false --o:ssl.termination=true
   server_name: office.la-suite.apps.digilab.network
-  aliasgroup1: https://files2.la-suite.apps.digilab.network
+  aliasgroup1: https://files.la-suite.apps.digilab.network
