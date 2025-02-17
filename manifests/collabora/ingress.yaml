@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "office2.la-suite.apps.digilab.network"
+        - "office.la-suite.apps.digilab.network"
       secretName: collabora-ingress-tls
   rules:
-    - host: "office2.la-suite.apps.digilab.network"
+    - host: "office.la-suite.apps.digilab.network"
       http:
         paths:
           - path: /
