@@ -17,6 +17,13 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "256k"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header X-Forwarded-Proto $scheme;
+      location /.well-known/carddav {
+          return 301 $scheme://$host/remote.php/dav;
+      }
+
+      location /.well-known/caldav {
+          return 301 $scheme://$host/remote.php/dav;
+      }
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
