@@ -1,0 +1,58 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nextcloud-cronjob
+  namespace: nextcloud
+spec:
+  schedule: "*/5 * * * *"  # Every 5 minutes (recommended by Nextcloud)
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: nextcloud-cron
+              image: nextcloud:30.0.5-apache
+              command:
+                - /bin/sh
+                - -c
+                - php -f /var/www/html/cron.php
+              env:
+                - name: NEXTCLOUD_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: sec
+                      key: nextcloud-username
+                - name: NEXTCLOUD_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: sec
+                      key: nextcloud-password
+              volumeMounts:
+                - name: nextcloud-data
+                  mountPath: /var/www/
+                  subPath: root
+                - name: nextcloud-data
+                  mountPath: /var/www/html
+                  subPath: html
+                - name: nextcloud-data
+                  mountPath: /var/www/html/data
+                  subPath: data
+                - name: nextcloud-data
+                  mountPath: /var/www/html/config
+                  subPath: config
+                - name: nextcloud-data
+                  mountPath: /var/www/html/custom_apps
+                  subPath: custom_apps
+                - name: nextcloud-data
+                  mountPath: /var/www/tmp
+                  subPath: tmp
+              securityContext:
+                runAsUser: 33
+                runAsGroup: 33
+          restartPolicy: OnFailure
+          volumes:
+            - name: nextcloud-data
+              persistentVolumeClaim:
+                claimName: pvc
+          securityContext:
+            fsGroup: 33

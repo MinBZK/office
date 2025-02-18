@@ -9,3 +9,4 @@ resources:
 - pvc.yaml
 - secret.yaml
 - service.yaml
+- cronjob.yaml
