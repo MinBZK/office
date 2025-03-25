@@ -82,7 +82,9 @@ spec:
                   name: sec
                   key: password
           resources:
-            {}
+            requests:
+              memory: "2Gi"
+              cpu: "400m"
           volumeMounts:
             - name: tmp
               mountPath: /tmp
